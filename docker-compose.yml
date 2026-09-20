@@ -1,0 +1,11 @@
+services:
+  seam-avoidance:
+    build: .
+    image: cylinder-seam-avoidance:latest
+    container_name: cylinder-seam
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      # 容器内监听端口（与右侧映射端口保持一致即可）
+      - PORT=3000
+    restart: unless-stopped

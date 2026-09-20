@@ -1,0 +1,16 @@
+{
+  "name": "cylinder-seam-avoidance",
+  "version": "1.0.0",
+  "description": "圆筒包装接缝避让：按周长归一化保护区、合并禁用旋转范围、求解可行角度段并 Canvas 预览",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

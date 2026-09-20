@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>圆筒包装接缝避让</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>圆筒包装接缝避让</h1>
+    <p class="subtitle">按周长归一化跨零点保护区 · 合并禁用旋转范围 · 求解可行角度段</p>
+  </header>
+
+  <main class="layout">
+    <!-- 左侧：参数与结果 -->
+    <section class="panel">
+      <h2>参数输入</h2>
+
+      <div class="form-row">
+        <label for="circumference">筒体周长 C（mm）</label>
+        <input id="circumference" type="number" min="0.1" step="1" value="628" />
+      </div>
+      <div class="form-row">
+        <label for="seamWidth">接缝安全宽度 w（mm）</label>
+        <input id="seamWidth" type="number" min="0" step="1" value="20" />
+      </div>
+
+      <div class="zones-head">
+        <h2>印刷保护区（mm）</h2>
+        <button id="addZone" class="btn btn-ghost" type="button">＋ 添加</button>
+      </div>
+      <div class="zones-table-head">
+        <span>起点 s</span><span>长度 l</span><span></span>
+      </div>
+      <div id="zonesList" class="zones-list"></div>
+      <p class="hint">起点可大于周长或为负，系统按周长取模归一化；长度跨越 C−0 时自动按跨零点处理。</p>
+
+      <div id="errorBox" class="error-box" hidden></div>
+
+      <div id="summary" class="summary"></div>
+
+      <button id="useRecommended" class="btn btn-ghost" type="button" hidden>采用推荐旋转量</button>
+
+      <h2>可行角度段</h2>
+      <div class="table-wrap">
+        <table id="feasibleTable">
+          <thead>
+            <tr>
+              <th>#</th><th>起 (°)</th><th>止 (°)</th><th>跨零</th>
+              <th>长度 (°)</th><th>最远中点 (°)</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <h2>禁用旋转范围</h2>
+      <div class="table-wrap">
+        <table id="forbiddenTable">
+          <thead>
+            <tr>
+              <th>#</th><th>起 (°)</th><th>止 (°)</th><th>跨零</th>
+              <th>长度 (°)</th><th>链接续</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 右侧：Canvas 预览 -->
+    <section class="panel canvas-panel">
+      <h2>预览（可拖动接缝）</h2>
+      <canvas id="view" width="600" height="760" aria-label="接缝与保护区预览"></canvas>
+      <div class="legend">
+        <span><i class="sw sw-zone"></i>印刷保护区</span>
+        <span><i class="sw sw-forb"></i>禁用旋转范围</span>
+        <span><i class="sw sw-feas"></i>可行角度段</span>
+        <span><i class="sw sw-seam"></i>接缝 ±w/2</span>
+      </div>
+      <p class="hint">拖动外圈接缝手柄或下方展开条，指针会自动吸附到最近的可行位置；绿色虚线为推荐旋转量。</p>
+    </section>
+  </main>
+
+  <script src="/lib/geometry.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
